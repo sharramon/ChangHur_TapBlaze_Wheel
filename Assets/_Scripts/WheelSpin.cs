@@ -67,7 +67,7 @@ public class WheelSpin : MonoBehaviour
     public void ShowRewardSprite()
     {
         rewardSprite.gameObject.SetActive(true);
-        rewardSprite.GetComponent<WonRewardDisplay>().GetSprite(id);
+        rewardSprite.GetComponent<RewardDisplay>().GetSprite(id);
     }
 
 }
