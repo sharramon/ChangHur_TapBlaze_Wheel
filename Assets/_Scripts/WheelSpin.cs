@@ -31,17 +31,28 @@ public class WheelSpin : MonoBehaviour
 
     IEnumerator SpinCoroutine()
     {
+        Debug.Log("running coroutine");
+        startSpin = false;
+
         int stopAngle = GetStopAngle();
-        transform.Rotate(0, 0, 3f);
-        yield return new WaitForSeconds(3f);
-        while (Mathf.Abs(transform.localEulerAngles.z - stopAngle) > 2)
+        var time = 0f;
+        var spinSpeed = 3f;
+        while (time < 3f)
         {
+            transform.Rotate(0, 0, spinSpeed);
+            time += Time.deltaTime;
             yield return null;
         }
-        startSpin = false;
+        while (Mathf.Abs(transform.localEulerAngles.z - stopAngle) > 2)
+        {
+            transform.Rotate(0, 0, spinSpeed - 1f);
+            yield return null;
+        }
+
         yield return new WaitForSeconds(0.5f);
         ShowRewardSprite();
         StateManager.Instance.UpdateGameState(GameState.Reward);
+        yield return null;
     }
     //use the number of sections to figure out how much rot each section requires
     //then use the id to pinpoint where the wheel needs to stop
